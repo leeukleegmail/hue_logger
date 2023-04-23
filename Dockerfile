@@ -1,14 +1,13 @@
-# syntax=docker/dockerfile:1
-FROM python:3.8-slim-buster
-
+FROM python:3.10.11-alpine
 
 ARG container_name
 ENV CONTAINER_NAME $container_name
 
 WORKDIR /$CONTAINER_NAME
 
-COPY requierments.txt requierments.txt
-RUN /usr/local/bin/python -m pip install --upgrade pip
-RUN pip3 install -r requierments.txt
+RUN pip install --upgrade pip
 
-CMD [ "python3", "read.py"]
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+CMD [ "python", "server.py"]
